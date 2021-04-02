@@ -29,15 +29,17 @@ export const useCumulativeCode = (cellId: string) => {
     const showFundNoop = `var show = function() {}`;
 
     for (let id of order) {
-      if (id === cellId) {
-        codes.push(showFunc);
-      } else {
-        codes.push(showFundNoop);
-      }
+      if (data[id].type === "code") {
+        if (id === cellId) {
+          codes.push(showFunc);
+        } else {
+          codes.push(showFundNoop);
+        }
 
-      codes.push(data[id].content);
-      if (id === cellId) {
-        break;
+        codes.push(data[id].content);
+        if (id === cellId) {
+          break;
+        }
       }
     }
     return codes.join("\n");
